@@ -16,12 +16,19 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
 
 
     //Kitap almayan öğrencileri listeleyin.
-    String QUESTION_3 = "";
+    String QUESTION_3 = "select o.* from ogrenci as o\n" +
+            "LEFT JOIN islem as i\n" +
+            "on i.ogrno = o.ogrno\n" +
+            "where i.ogrno is null";
     @Query(value = QUESTION_3, nativeQuery = true)
     List<Ogrenci> findStudentsWithNoBook();
 
     //10A veya 10B sınıfındaki öğrencileri sınıf ve okuduğu kitap sayısını getirin.
-    String QUESTION_4 = "";
+    String QUESTION_4 = "select o.sinif, count(i.kitapno) from ogrenci as o\n" +
+            "LEFT JOIN islem as i\n" +
+            "on i.ogrno = o.ogrno\n" +
+            "where o.sinif in('10A', '10B')\n" +
+            "GROUP BY o.sinif";
     @Query(value = QUESTION_4, nativeQuery = true)
     List<KitapCount> findClassesWithBookCount();
 
