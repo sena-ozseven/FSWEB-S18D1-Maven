@@ -18,5 +18,15 @@ public interface KitapRepository extends JpaRepository<Kitap, Long> {
     @Query(value = QUESTION_10, nativeQuery = true)
     Double findAvgPointOfBooks();
 
+    /*
+    select * from tur, kitap
+    where tur.turno = kitap.turno
+    and tur.turno = (select turno from tur
+    where tur.ad='Hikaye')
 
+    select * from tur, kitap
+    where tur.turno = kitap.turno
+    and tur.ad = (select ad from tur
+    where tur.ad ilike 'Dram' or  tur.ad ilike 'Hikaye')
+    */
 }

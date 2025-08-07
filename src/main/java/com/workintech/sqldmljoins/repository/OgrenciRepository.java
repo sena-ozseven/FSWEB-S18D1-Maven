@@ -10,7 +10,9 @@ public interface OgrenciRepository extends JpaRepository<Ogrenci, Long> {
 
 
     //Kitap alan öğrencilerin öğrenci bilgilerini listeleyin..
-    String QUESTION_2 = "";
+    String QUESTION_2 = "select distinct ogrenci from islem, ogrenci, kitap\n" +
+                        "where ogrenci.ogrno = islem.ogrno\n" +
+                        "and islem.kitapno = kitap.kitapno";
     @Query(value = QUESTION_2, nativeQuery = true)
     List<Ogrenci> findStudentsWithBook();
 
